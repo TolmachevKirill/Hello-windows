@@ -20,22 +20,18 @@ pipeline {
                 sh 'cmake --build build'
             }
         }
-        stage('Archive') {
-            steps {
-                // Копирование артефактов сборки
-                sh 'cp -r build/* /home/auto-admin/TestBuilder/'
-            }
-        }
     }
 
     post {
         success {
-            // Действия после успешной сборки
+            // Архивация артефактов в Jenkins
+            archiveArtifacts artifacts: 'build/**/*', allowEmptyArchive: true
+            // Копирование артефактов сборки в указанную директорию
+            sh 'cp -r build/* /home/auto-admin/TestBuilder/'
             echo 'Build and archive were successful!'
         }
         failure {
-            // Действия в случае неудачной сборки
-            echo 'Build failed!'
+            echo 'Build failed.'
         }
     }
 }
