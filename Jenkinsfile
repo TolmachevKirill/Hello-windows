@@ -27,7 +27,7 @@ pipeline {
             // Архивация артефактов в Jenkins
             archiveArtifacts artifacts: 'build/**/*', allowEmptyArchive: true
             // Копирование артефактов сборки в указанную директорию
-            sh 'cp -r build/* /home/auto-admin/TestBuilder/'
+            sh 'cp -r build /home/auto-admin/TestBuilder/'
             echo 'Build and archive were successful!'
         }
         failure {
